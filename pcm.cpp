@@ -65,15 +65,11 @@ vector<double> createZones(double maxAmp, double minAmp, int n, double delta) {
     vector<double> tempZone;
     tempZone.push_back(minAmp);
 
-    for(int i = 0; i<n; i++) {
+    while(minAmp != maxAmp) {
         minAmp += delta;
-        if(minAmp == maxAmp || minAmp > maxAmp) {
-            break;
-        }
         tempZone.push_back(minAmp);
     }
 
-    tempZone.push_back(maxAmp);
     return tempZone;
 }
 
@@ -143,7 +139,7 @@ vector<double> getNormalizedErr(vector<double> norQuantizationVals, vector<doubl
 int main()
 {
     int n = 9;
-    double zones[n];
+    double zones[100];
     double maxAmp = 20;
     double minAmp = -20;
     double delta = 5;
@@ -165,7 +161,7 @@ int main()
     }
 
     norPAMVals = getNorPAMVal(actualAmplitude, delta);
-    quantizationVal = getQuantizationVal(actualAmplitude, zones, n);
+    quantizationVal = getQuantizationVal(actualAmplitude, zones, count);
     norQuantizationVal = getNorQuantizationVal(quantizationVal, delta);
     normalizedErr = getNormalizedErr(norQuantizationVal, norPAMVals);
 
